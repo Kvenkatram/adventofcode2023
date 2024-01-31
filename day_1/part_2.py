@@ -11,32 +11,27 @@ from utils.utils import file_to_list
 
 def find_calibration_value(elements: str) -> int:
 
-    result = re.findall(r"[0-9]|one|two|three|four|five|six|seven|eight|nine", elements)
+    values = {
+        "one": "1", 
+        "two": "2", 
+        "three": "3", 
+        "four": "4", 
+        "five": "5", 
+        "six": "6", 
+        "seven": "7", 
+        "eight": "8", 
+        "nine": "9"
+        }
+    digits = []
+    for index, item in enumerate(elements):
+        if item.isdigit():
+            digits.append(item)
+        else:
+            for key in values.keys():
+                if elements[index:].startswith(key):
+                    digits.append(values[key])
 
-    val = [result[0], result[-1]]
-    for index, item in enumerate(val):
-        if item == "one":
-            val[index] = '1'
-        elif item == "two":
-            val[index] = '2'
-        elif item == "three":
-            val[index] = '3'
-        elif item == "four":
-            val[index] = '4'
-        elif item == "five":
-            val[index] = '5'
-        elif item == "six":
-            val[index] = '6'
-        elif item == "seven":
-            val[index] = '7'
-        elif item == "eight":
-            val[index] = '8'
-        elif item ==  "nine":
-            val[index] = '9'
-    
-    
-    return int(val[0] + val[1])
-    
+    return int(digits[0]+digits[-1])
 
 
 
